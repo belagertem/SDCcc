@@ -456,7 +456,7 @@ public class TestClientImpl extends AbstractIdleService implements TestClient, W
                 try {
                     disconnect(true);
                 } catch (TimeoutException e) {
-                    Log.error("Couldn't stop sdcRemoteDevice");
+                    LOG.error("Could not stop sdcRemoteDevice " + e);
                 }
 
                 while (count < reconnectTries && !isConnected.get()) {
