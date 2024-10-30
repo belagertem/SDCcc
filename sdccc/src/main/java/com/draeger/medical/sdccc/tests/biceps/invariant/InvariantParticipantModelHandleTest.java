@@ -83,6 +83,7 @@ public class InvariantParticipantModelHandleTest extends InjectorTestBase {
     @TestIdentifier(EnabledTestConfig.BICEPS_R0007_0)
     @TestDescription("Starting from the initially retrieved mdib, ensures that for each mdib version, "
             + " all contained handles are unique.")
+    @RequirePrecondition(manipulationPreconditions = {ManipulationPreconditions.ReconnectManipulation.class})
     void testRequirementR0007() throws NoTestData, IOException {
         // NOTE: MdibHistorian checks the uniqueness of Handles in all MdibVersions.
         //       However, its checks are missing duplicate handles introduced by ContextReports.

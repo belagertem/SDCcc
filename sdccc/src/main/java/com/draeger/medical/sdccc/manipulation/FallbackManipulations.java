@@ -291,6 +291,19 @@ public class FallbackManipulations implements Manipulations {
                 interactionResult ? ResponseTypes.Result.RESULT_SUCCESS : ResponseTypes.Result.RESULT_FAIL);
     }
 
+    @Override
+    public ResultResponse dummyReconnectManipulation() {
+        final var interactionMessage = "Shutdown / restart the device to trigger a reconnect.";
+        final var interactionResult = interactionFactory
+                .createUserInteraction(new FilterInputStream(System.in) {
+                    @Override
+                    public void close() {}
+                })
+                .displayYesNoUserInteraction(interactionMessage);
+        return ResultResponse.from(
+                interactionResult ? ResponseTypes.Result.RESULT_SUCCESS : ResponseTypes.Result.RESULT_FAIL);
+    }
+
     public InteractionFactory getInteractionFactory() {
         return interactionFactory;
     }

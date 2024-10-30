@@ -348,6 +348,16 @@ public class GRpcManipulations implements Manipulations {
                 ManipulationParameterUtil.buildTriggerReportManipulationParameterData(report));
     }
 
+    @Override
+    public ResultResponse dummyReconnectManipulation() {
+        return performCallWrapper(
+                v -> deviceStub.sendHello(Empty.getDefaultInstance()),
+                v -> fallback.dummyReconnectManipulation(),
+                BasicResponses.BasicResponse::getResult,
+                ResultResponse::from,
+                ManipulationParameterUtil.buildEmptyManipulationParameterData());
+    }
+
     private Optional<MetricTypes.MetricStatus> getMetricStatus(final ComponentActivation activation) {
         return switch (activation) {
             case ON -> Optional.of(MetricTypes.MetricStatus.METRIC_STATUS_PERFORMED_OR_APPLIED);

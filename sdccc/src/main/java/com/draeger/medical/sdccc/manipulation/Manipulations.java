@@ -160,4 +160,11 @@ public interface Manipulations {
      * @return the result of the manipulation
      */
     ResultResponse triggerReport(QName reportType);
+
+    /**
+     * Some dummy manipulation to test reconnect feature.
+     *
+     * @return the result of the manipulation
+     */
+    ResultResponse dummyReconnectManipulation();
 }

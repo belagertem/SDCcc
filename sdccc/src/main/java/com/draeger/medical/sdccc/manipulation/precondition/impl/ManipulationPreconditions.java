@@ -366,6 +366,29 @@ public class ManipulationPreconditions {
         }
     }
 
+    public static class ReconnectManipulation extends ManipulationPrecondition {
+
+        private static final Logger LOG = LogManager.getLogger(ManipulationPreconditions.ReconnectManipulation.class);
+
+        public ReconnectManipulation() {
+            super(ReconnectManipulation::manipulation);
+        }
+
+        static boolean manipulation(final Injector injector) {
+            final var testClient = injector.getInstance(TestClient.class);
+            final var manipulations = injector.getInstance(Manipulations.class);
+
+            LOG.info(
+                    "Starting manipulation, that reboots device. Client currently connected: {}",
+                    testClient.isConnected());
+            final ResponseTypes.Result result =
+                    manipulations.dummyReconnectManipulation().getResult();
+
+            LOG.info("Is reconnected: {}", testClient.isConnected());
+            return result == ResponseTypes.Result.RESULT_SUCCESS;
+        }
+    }
+
     /**
      * Set every AbstractDeviceComponent's activation state to OFF if possible.
      */
