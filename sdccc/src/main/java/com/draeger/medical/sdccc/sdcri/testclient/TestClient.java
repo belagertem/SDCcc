@@ -84,6 +84,4 @@ public interface TestClient {
     List<String> getTargetXAddrs();
 
     Injector getInjector();
-
-    Boolean isConnected();
 }

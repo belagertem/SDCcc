@@ -380,11 +380,11 @@ public class ManipulationPreconditions {
 
             LOG.info(
                     "Starting manipulation, that reboots device. Client currently connected: {}",
-                    testClient.isConnected());
+                    testClient.getSdcRemoteDevice() != null);
             final ResponseTypes.Result result =
                     manipulations.dummyReconnectManipulation().getResult();
 
-            LOG.info("Is reconnected: {}", testClient.isConnected());
+            LOG.info("Is reconnected: {}", testClient.getSdcRemoteDevice() != null);
             return result == ResponseTypes.Result.RESULT_SUCCESS;
         }
     }
