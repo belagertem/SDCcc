@@ -17,6 +17,7 @@
     <properties>
         <revision>9.1.0</revision>
         <changelist>-SNAPSHOT</changelist>
+        <buildNumber>dev</buildNumber>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <execPluginVersion>3.1.0</execPluginVersion>
         <jakartaXmlBindApiVersion>4.0.1</jakartaXmlBindApiVersion>
@@ -57,7 +58,7 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>download-licenses</goal>
+                            <!--<goal>download-licenses</goal>-->
                         </goals>
                     </execution>
                 </executions>
