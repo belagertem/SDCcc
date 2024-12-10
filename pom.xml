@@ -58,7 +58,7 @@
                 <executions>
                     <execution>
                         <goals>
-                            <!--<goal>download-licenses</goal>-->
+                            <goal>download-licenses</goal>
                         </goals>
                     </execution>
                 </executions>
