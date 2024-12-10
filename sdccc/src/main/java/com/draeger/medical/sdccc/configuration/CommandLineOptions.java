@@ -86,44 +86,15 @@ public class CommandLineOptions {
             final var version = setupVersion();
             final var versionParser = new DefaultParser();
             try {
-                CommandLine cmdVersion = versionParser.parse(version, commandLineArguments);
-                var isSet = cmdVersion.hasOption(VERSION);
+                final CommandLine cmdVersion = versionParser.parse(version, commandLineArguments);
+                final var isSet = cmdVersion.hasOption(VERSION);
                 if (isSet) {
-                    var buildNumber = "";
-                    var devVersion = "";
-
-                    Properties properties = new Properties();
-                    try (InputStream input = this.getClass().getResourceAsStream("config.properties")) {
-                        if (input != null) {
-                            properties.load(input);
-                            devVersion = properties.getProperty("project.version");
-                            buildNumber = properties.getProperty("project.buildNum");
-                        }
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                    System.out.println(devVersion + "#" + buildNumber);
+                    printVersion();
                 } else {
-                    System.out.println(e.getMessage());
-                    help.printHelp("SDCcc", options);
-
-                    try {
-                        printNetworkAdapterInformation();
-                    } catch (final SocketException e2) {
-                        LOG.error("Error while printing network adapter info", e2);
-                        throw new RuntimeException(e2);
-                    }
+                    printNetworkInfo(e, help, options);
                 }
             } catch (final ParseException ex) {
-                System.out.println(e.getMessage());
-                help.printHelp("SDCcc", options);
-
-                try {
-                    printNetworkAdapterInformation();
-                } catch (final SocketException e2) {
-                    LOG.error("Error while printing network adapter info", e2);
-                    throw new RuntimeException(e2);
-                }
+                printNetworkInfo(e, help, options);
             }
             System.exit(1);
         }
@@ -144,6 +115,32 @@ public class CommandLineOptions {
         this.testRunDirectory = cmd.getOptionValue(TEST_RUN_DIRECTORY);
         this.noSubdirectories = Boolean.parseBoolean(cmd.getOptionValue(NO_SUBDIRECTORIES));
         this.fileLogLevel = Level.toLevel(cmd.getOptionValue(FILE_LOG_LEVEL), Level.INFO);
+    }
+
+    private void printVersion() {
+        var buildNumber = "";
+        var devVersion = "";
+
+        final Properties properties = new Properties();
+        try (InputStream input = this.getClass().getResourceAsStream("config.properties")) {
+            properties.load(input);
+            devVersion = properties.getProperty("project.version");
+            buildNumber = properties.getProperty("project.buildNum");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        System.out.println(devVersion + "#" + buildNumber);
+    }
+
+    private void printNetworkInfo(final ParseException e, final HelpFormatter help, final Options options) {
+        System.out.println(e.getMessage());
+        help.printHelp("SDCcc", options);
+        try {
+            printNetworkAdapterInformation();
+        } catch (final SocketException e2) {
+            LOG.error("Error while printing network adapter info", e2);
+            throw new RuntimeException(e2);
+        }
     }
 
     private Options setupVersion() {
