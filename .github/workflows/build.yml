@@ -6,7 +6,7 @@ on:
   push: # Apply to all branches
 
 env:
-  BUILDNUMBER: $GITHUB_RUN_NUMBER
+  BUILDNUMBER: $GIT_HASH_SHORT
   CHANGELIST: -SNAPSHOT
   RELEASE_VERSION: 0.0.0
 
@@ -25,14 +25,10 @@ jobs:
           echo RELEASE_VERSION=$(cat pom.xml | grep -o -P '(?<=revision\>).*(?=\<\/revision)') >> $GITHUB_ENV
           echo GIT_HASH_SHORT=$(git rev-parse --short "$GITHUB_SHA") >> $GITHUB_ENV
 
-      - name: Remove SNAPSHOT suffix for release
+      - name: Remove SNAPSHOT and BUILDNUMBER suffix for release
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
           echo CHANGELIST= >> $GITHUB_ENV
-
-      - name: Remove BUILDNUMBER suffix for release
-        if: startsWith(github.ref, 'refs/tags/v')
-        run: |
           echo BUILDNUMBER= >> $GITHUB_ENV
 
       - name: Add git hash to snapshot release

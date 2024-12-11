@@ -129,7 +129,10 @@ public class CommandLineOptions {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        System.out.println(devVersion + "#" + buildNumber);
+        if (!buildNumber.isEmpty()) {
+            buildNumber = "#" + buildNumber;
+        }
+        System.out.println(devVersion + buildNumber);
     }
 
     private void printNetworkInfo(final ParseException e, final HelpFormatter help, final Options options) {
