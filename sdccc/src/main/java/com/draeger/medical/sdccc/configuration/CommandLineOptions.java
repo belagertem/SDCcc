@@ -118,21 +118,16 @@ public class CommandLineOptions {
     }
 
     private void printVersion() {
-        var buildNumber = "";
         var devVersion = "";
 
         final Properties properties = new Properties();
         try (InputStream input = this.getClass().getResourceAsStream("config.properties")) {
             properties.load(input);
             devVersion = properties.getProperty("project.version");
-            buildNumber = properties.getProperty("project.buildNum");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        if (!buildNumber.isEmpty()) {
-            buildNumber = "#" + buildNumber;
-        }
-        System.out.println(devVersion + buildNumber);
+        System.out.println(devVersion);
     }
 
     private void printNetworkInfo(final ParseException e, final HelpFormatter help, final Options options) {
