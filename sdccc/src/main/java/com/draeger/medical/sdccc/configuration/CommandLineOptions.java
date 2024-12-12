@@ -94,7 +94,7 @@ public class CommandLineOptions {
                     printNetworkInfo(e, help, options);
                 }
             } catch (final ParseException ex) {
-                printNetworkInfo(e, help, options);
+                printNetworkInfo(ex, help, options);
             }
             System.exit(1);
         }
