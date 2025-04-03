@@ -55,6 +55,7 @@ val detektTask = tasks.register<JavaExec>("detekt") {
 }
 
 dependencies {
+    implementation(enforcedPlatform(project(":platform")))
     detekt(libs.detekt.cli)
     detekt(libs.detekt.formatting)
     api(libs.org.jetbrains.kotlin.kotlin.stdlib)

@@ -10,6 +10,7 @@ pluginManagement {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "sdccc_parent"
+include(":platform")
 include(":biceps-model")
 include(":dpws-model")
 include(":sdccc")

@@ -10,6 +10,7 @@ plugins {
 val javaVersion = property("javaVersion").toString()
 
 dependencies {
+    implementation(enforcedPlatform(project(":platform")))
     api(libs.org.junit.jupiter.junit.jupiter.api)
     api(libs.org.junit.jupiter.junit.jupiter.engine)
     api(libs.org.junit.platform.junit.platform.launcher)
