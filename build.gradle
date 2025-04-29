@@ -1,0 +1,9 @@
+plugins {
+    id 'com.draeger.medical.version-conventions'
+    id 'nebula.lint' version '20.5.8'
+}
+
+allprojects {
+    apply plugin: 'nebula.lint'
+    gradleLint.rules = ['unused-dependency', 'duplicate-dependency-class', 'overridden-dependency-version', 'all-dependency'] // add as many rules here as you'd like
+}
