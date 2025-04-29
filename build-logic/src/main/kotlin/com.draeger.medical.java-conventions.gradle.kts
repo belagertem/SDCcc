@@ -9,10 +9,6 @@ plugins {
 repositories {
     mavenLocal()
 
-    maven {
-        url = uri("https://maven.pkg.github.com/Draegerwerk/t2iapi")
-    }
-
     mavenCentral()
 
     maven {

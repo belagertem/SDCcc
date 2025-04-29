@@ -24,6 +24,7 @@ dependencies {
         api(libs.detekt.formatting)
         api(libs.io.github.threeten.jaxb.threeten.jaxb.core)
         api(libs.io.grpc.grpc.api)
+        api(libs.io.grpc.grpc.stub)
         api(libs.jakarta.xml.bind.jakarta.xml.bind.api)
         api(libs.javax.annotation.javax.annotation.api)
         api(libs.javax.persistence.javax.persistence.api)
@@ -42,7 +43,9 @@ dependencies {
         api(libs.com.google.code.gson.gson)
         api(libs.com.lemonappdev.konsist)
         api(libs.com.lmax.disruptor)
+        api(libs.com.tngtech.archunit.archunit)
         api(libs.com.tngtech.archunit.archunit.junit5)
+        api(libs.com.tngtech.archunit.archunit.junit5.api)
         api(libs.commons.cli.commons.cli)
         api(libs.jakarta.inject.jakarta.inject.api)
         api(libs.net.sf.saxon.saxon.he)
@@ -75,5 +78,7 @@ dependencies {
         api(libs.org.somda.sdc.dpws.model)
         api(libs.org.tomlj.tomlj)
         api(libs.com.github.jk1.license.report)
+        api(libs.org.opentest4j.opentest4j)
+        api(libs.org.jetbrains.annotations)
     }
 }
