@@ -5,5 +5,5 @@ plugins {
 
 allprojects {
     apply plugin: 'nebula.lint'
-    gradleLint.rules = ['unused-dependency', 'duplicate-dependency-class', 'overridden-dependency-version', 'all-dependency'] // add as many rules here as you'd like
+    gradleLint.rules = ['undeclared-dependency', 'unused-dependency', 'duplicate-dependency-class', 'overridden-dependency-version', 'all-dependency'] // add as many rules here as you'd like
 }
