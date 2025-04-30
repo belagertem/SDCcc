@@ -75,6 +75,7 @@ dependencies {
         api(libs.org.somda.sdc.dpws)
         api(libs.org.somda.sdc.biceps)
         api(libs.org.somda.sdc.biceps.model)
+        api(libs.org.somda.sdc.biceps.model.plugins)
         api(libs.org.somda.sdc.dpws.model)
         api(libs.org.tomlj.tomlj)
         api(libs.com.github.jk1.license.report)
