@@ -61,6 +61,7 @@ dependencies {
     api(libs.com.lemonappdev.konsist)
     api(libs.com.google.guava.guava)
     api(libs.com.google.code.gson.gson)
+    api(libs.org.jetbrains.annotations)
     testImplementation(libs.org.mockito.mockito.core)
     testImplementation(libs.org.mockito.kotlin.mockito.kotlin)
     testImplementation(projects.bicepsModel)
@@ -68,19 +69,11 @@ dependencies {
     testImplementation(libs.com.tngtech.archunit.archunit.junit5)
     testImplementation(libs.org.junit.jupiter.junit.jupiter.params)
     testImplementation(libs.org.jetbrains.kotlin.kotlin.test.junit5)
-    // new deps
     testImplementation(libs.com.tngtech.archunit.archunit)
     testImplementation(libs.com.tngtech.archunit.archunit.junit5.api)
     testImplementation(libs.io.grpc.grpc.stub)
     testImplementation(libs.org.opentest4j.opentest4j)
-    implementation(libs.org.jetbrains.annotations)
-    /*
-    api(libs.com.google.guava.failureaccess)
-    api(libs.org.somda.sdc.biceps.model.plugins)
-    api(libs.org.jvnet.jaxb.jaxb.plugins)
-    api(libs.org.jvnet.jaxb.jaxb.plugins.runtime)
-    api(libs.org.junit.platform.junit.platform.commons)
-    */
+
 
     annotationProcessor(libs.org.apache.logging.log4j.log4j.core)
 }

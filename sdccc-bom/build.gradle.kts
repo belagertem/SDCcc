@@ -81,5 +81,7 @@ dependencies {
         api(libs.com.github.jk1.license.report)
         api(libs.org.opentest4j.opentest4j)
         api(libs.org.jetbrains.annotations)
+        api(libs.com.tngtech.archunit.archunit)
+        api(libs.com.tngtech.archunit.archunit.junit5.api)
     }
 }
