@@ -36,45 +36,60 @@ public final class InjectorUtil {
     /**
      * Creates a guice {@linkplain Injector} for testing requirement tests.
      *
+     * @param inMemoryStorage true if an in-memory database should be used, false if a custom database should be used
      * @param overrides additional use case specific overrides
      * @return a configured injector
      * @throws IOException on error creating test run directory
      */
-    public static Injector setupInjector(final AbstractModule... overrides) throws IOException {
+    public static Injector setupInjector(final boolean inMemoryStorage, final AbstractModule... overrides)
+        throws IOException {
         final var randomPrefix = UUID.randomUUID().toString();
         final var tempDir = Files.createTempDirectory("TestTest" + randomPrefix);
         tempDir.toFile().deleteOnExit();
 
         final var allOverrides = new ArrayList<AbstractModule>();
 
-        allOverrides.add(new AbstractModule() {
-            @Override
-            protected void configure() {
-                // use in memory database by default
-                bind(HibernateConfig.class)
+        if (inMemoryStorage) {
+            allOverrides.add(new AbstractModule() {
+                @Override
+                protected void configure() {
+                    // use in memory database by default
+                    bind(HibernateConfig.class)
                         .to(HibernateConfigInMemoryImpl.class)
                         .in(Singleton.class);
-            }
-        });
+                }
+            });
+        }
         allOverrides.addAll(Arrays.asList(overrides));
 
         return Guice.createInjector(Modules.override(
-                        new DefaultTestSuiteModule(),
-                        new DefaultTestSuiteConfig() {
+                new DefaultTestSuiteModule(),
+                new DefaultTestSuiteConfig() {
 
-                            @Override
-                            protected void configureCommlogSettings() {
-                                bind(TestSuiteConfig.COMMLOG_MESSAGE_BUFFER_SIZE, int.class, 1);
-                            }
-                        },
-                        new DefaultEnabledTestConfig(),
-                        new AbstractConfigurationModule() {
-                            @Override
-                            protected void defaultConfigure() {
-                                // use temp dir for testing
-                                this.bind(TestRunConfig.TEST_RUN_DIR, File.class, tempDir.toFile());
-                            }
-                        })
-                .with(allOverrides));
+                    @Override
+                    protected void configureCommlogSettings() {
+                        bind(TestSuiteConfig.COMMLOG_MESSAGE_BUFFER_SIZE, int.class, 1);
+                    }
+                },
+                new DefaultEnabledTestConfig(),
+                new AbstractConfigurationModule() {
+                    @Override
+                    protected void defaultConfigure() {
+                        // use temp dir for testing
+                        this.bind(TestRunConfig.TEST_RUN_DIR, File.class, tempDir.toFile());
+                    }
+                })
+            .with(allOverrides));
+    }
+
+    /**
+     * Creates a guice {@linkplain Injector} for testing requirement tests.
+     *
+     * @param overrides additional use case specific overrides
+     * @return a configured injector
+     * @throws IOException on error creating test run directory
+     */
+    public static Injector setupInjector(final AbstractModule... overrides) throws IOException {
+        return setupInjector(true, overrides);
     }
 }

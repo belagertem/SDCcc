@@ -35,6 +35,7 @@ public class HibernateConfigBase implements HibernateConfig {
     private static final int POOL_SIZE = Runtime.getRuntime().availableProcessors() * 10;
 
     private final String baseUrl;
+    private final HibernateHBM2DDLAuto auto;
 
     /**
      * Creates a hibernate configuration storing the database at the specified location.
@@ -42,8 +43,21 @@ public class HibernateConfigBase implements HibernateConfig {
      * @param derbyUrl location to store the database at
      */
     public HibernateConfigBase(final String derbyUrl) {
-        this.baseUrl = "jdbc:derby:" + derbyUrl;
+        this.baseUrl = "jdbc:derby:" + derbyUrl + ";create=True";
         Configurator.setLevel("org.hibernate", Level.ERROR);
+        auto = HibernateHBM2DDLAuto.CREATE;
+    }
+
+    /**
+     *  Creates a hibernate configuration storing the database at the specified location.
+     *
+     * @param derbyUrl location to store the database at
+     * @param hbm2ddlAuto property for schema creation
+     */
+    public HibernateConfigBase(final String derbyUrl, final HibernateHBM2DDLAuto hbm2ddlAuto) {
+        this.baseUrl = "jdbc:derby:" + derbyUrl + ";create=False";;
+        Configurator.setLevel("org.hibernate", Level.ERROR);
+        auto = hbm2ddlAuto;
     }
 
     @Override
@@ -58,9 +72,9 @@ public class HibernateConfigBase implements HibernateConfig {
         config.setProperty(Environment.POOL_SIZE, String.valueOf(POOL_SIZE));
         config.setProperty(Environment.DIALECT, "org.hibernate.dialect.DerbyTenFiveDialect");
         config.setProperty(Environment.SHOW_SQL, FALSE_SETTING_VALUE);
-        config.setProperty(Environment.HBM2DDL_AUTO, "create");
+        config.setProperty(Environment.HBM2DDL_AUTO, auto.getValue());
         config.setProperty(Environment.USE_NEW_ID_GENERATOR_MAPPINGS, FALSE_SETTING_VALUE);
-        config.setProperty(Environment.URL, this.baseUrl + ";create=True");
+        config.setProperty(Environment.URL, this.baseUrl);
 
         config.setProperty(Environment.STATEMENT_BATCH_SIZE, String.valueOf(this.getInsertBatchSize()));
         config.setProperty(Environment.ORDER_UPDATES, TRUE_SETTING_VALUE);
